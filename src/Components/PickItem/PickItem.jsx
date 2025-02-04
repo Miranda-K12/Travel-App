@@ -11,8 +11,8 @@ function PickItem() {
     setItems(items => [...items, item]);
   }
   function handleDeleteItem(id) {
-     setItems((prevItems)=>prevItems.filter(item => item.id !== id));
-   }
+    setItems((prevItems) => prevItems.filter(item => item.id !== id));
+  }
   function handleSubmit(e) {
     e.preventDefault();
     if (!itemName) return;
@@ -21,32 +21,42 @@ function PickItem() {
     setQuantity(1);
     setItemName('');
   }
-    return (
-      <div>
-        <div className={styles.header}>
-          <h3>Select, Click, and You&apos;re Set!</h3>
-        </div>
-        <form onSubmit={handleSubmit}>
+  function handleClearAll() {
+    setItems([]);
+  }
+  return (
+    <div>
+      <div className={styles.header}>
+        <h3>Select, Click, and You&apos;re Set!</h3>
+      </div>
+      <form onSubmit={handleSubmit}>
         <div className={styles.item_container}>
           <h4>What’s on Your Travel Checklist?</h4>
+          <div className={styles.item_box}>
             <select
               id="item-select"
               name="item"
               className={styles.items_number}
               value={quantity} onChange={(e) => setQuantity(Number(e.target.value))}>
-            {Array.from({ length: 10 }, (_, i) => i + 1).map((num) => <option value={num} key={num}>{num}</option>)}
-          </select>
-          <input type='text' placeholder='Item...' value={itemName} onChange={(e) => setItemName(e.target.value)}
-          />
-          <button className={styles.btn}>Add</button>
+              {Array.from({ length: 10 }, (_, i) => i + 1).map((num) => <option value={num} key={num}>{num}</option>)}
+            </select>
+            <input type='text' placeholder='Item...' value={itemName} onChange={(e) => setItemName(e.target.value)}
+            />
+            <button className={styles.btn}>Add</button>
           </div>
-          </form>
-          <div className={styles.item_list}>
-          <PackingList items={items} handleDeleteItem={handleDeleteItem}/>
         </div>
+      </form>
+      <div className={styles.item_list}>
+        <PackingList items={items} handleDeleteItem={handleDeleteItem} />
+        {items.length > 0 && (
+          <button className={styles.clear_btn} onClick={handleClearAll}>
+            Clear List
+          </button>
+        )}
       </div>
-    )
-  }
+    </div>
+  );
+}
 export default PickItem;
 
 function PackingList({items, handleDeleteItem}) {
