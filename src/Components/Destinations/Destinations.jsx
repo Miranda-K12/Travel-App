@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import destinationLists from './data'; 
 import styles from './Destinations.module.css';
-import LocationIcon from '../../assets/images/place.svg';
 import FoodIcon from '../../assets/images/food.svg';
 import Date from '../../assets/images/date.svg';
 import Activity from '../../assets/images/activity.svg';
@@ -12,8 +11,7 @@ function Destinations() {
   return (
     <div className={styles.card}>
       <div className={styles.card_header}>
-        <h2>Find your Perfect Place</h2>
-        <img src={LocationIcon} alt='location_icon' className={styles.location_icon} />
+        <h2>Explore Your Dream Destination</h2>
       </div>
       <DestinationItem destinationCard={destinationLists} />
     </div>

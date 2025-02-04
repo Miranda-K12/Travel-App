@@ -1,4 +1,6 @@
 /* Destinations.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Oleo+Script:wght@400;700&display=swap');
+
 .card_header {
   display: flex;
   align-items: center;
@@ -7,7 +9,7 @@
 }
 
 h2 {
-  font-size: 36px;
+  font-size: 42px;
   font-weight: bold;
   background: linear-gradient(to right, #5fb2ff, #2facc2);
   background-clip: text;
@@ -16,6 +18,8 @@ h2 {
   letter-spacing: 1px;
   text-align: center;
   margin: 24px 0;
+  font-family: "Oleo Script", serif;
+  text-transform: uppercase;
 }
 
 .location_icon {
@@ -88,7 +92,6 @@ h2 {
   font-weight: 500;
   clip-path: polygon(10% 0, 100% 0, 89% 100%, 0% 100%);
   padding: 10px 12px;
-  color: white;
 }
 
 .destination_card h3 {
