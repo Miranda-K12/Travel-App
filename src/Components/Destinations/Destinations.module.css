@@ -42,11 +42,11 @@ h2 {
   align-items: center;
   gap: 16px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  position: relative;
   cursor: pointer;
   padding-bottom: 12px;
   border-radius: 8px;
   transition: all 0.5s ease-out;
+  position: relative;
 }
 
 .destination_card:hover {
@@ -81,23 +81,20 @@ h2 {
 
 .card_title {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
 }
 
 .card_features {
   display: flex;
-  align-items: center;
-  background-color: #2facc2;
   font-weight: 500;
-  clip-path: polygon(10% 0, 100% 0, 89% 100%, 0% 100%);
-  padding: 10px 12px;
+  width: 100%;
+  font-style: italic;
+  margin-top: 12px;
 }
 
 .destination_card h3 {
   font-size: 1.5rem;
   color: #2facc2;
-  align-items: center;
 }
 
 div.selected {
@@ -122,4 +119,20 @@ div.selected {
 .card_details div img {
   width: 24px;
   height: 24px;
+}
+
+@media (max-width:1024px) {
+  .card_items {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width:768px) {
+  .card_items {
+    grid-template-columns: 1fr;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
 }

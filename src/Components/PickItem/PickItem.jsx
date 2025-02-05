@@ -107,7 +107,7 @@ function PackingItem({ packingData, handleDeleteItem, handleToggleItem }) {
         </span>
       </div>
       <button className={styles.delete} onClick={() => handleDeleteItem(packingData.id)}>
-        Delete Item
+        Delete
       </button>
     </li>
   );

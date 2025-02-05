@@ -43,7 +43,7 @@ function DestinationItem({ destinationCard }) {
                   <div className={styles.card_title}>
                     <h3>{place.place}</h3>
                     <div className={styles.card_features}>
-                      <p>{place.price}</p>
+                      <p>{place.price}-</p>
                       <p>{place.days}</p>
                     </div>
                   </div>

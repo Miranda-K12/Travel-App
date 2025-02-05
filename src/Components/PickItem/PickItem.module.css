@@ -153,3 +153,46 @@ ul li div {
   width: 24px;
   height: auto;
 }
+
+@media (max-width:768px) {
+  .header {
+    font-size: 24px;
+  }
+
+  .item_box,
+  ul,
+  .clear_btn {
+    width: 80%;
+  }
+}
+
+@media (max-width:540px) {
+  .header {
+    font-size: 18px;
+  }
+
+  .item_box,
+  ul,
+  .clear_btn {
+    width: 90%;
+  }
+
+  .delete {
+    width: 30%;
+  }
+
+  .item_box {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .btn,
+  input {
+    width: 100%;
+  }
+
+  h4 {
+    text-align: center;
+    font-size: 16px;
+  }
+}
