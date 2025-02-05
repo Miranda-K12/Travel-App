@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
 import styles from './PickItem.module.css';
-
+import Airplane from '../../assets/images/plane.svg';
 function PickItem() {
   const [itemName, setItemName] = useState('');
   const [quantity, setQuantity] = useState(1);
@@ -22,8 +22,15 @@ function PickItem() {
     setItemName('');
   }
   function handleClearAll() {
-    setItems([]);
+    const confirmed = window.confirm('Are you sure you want to delete all items?');
+    if (confirmed) setItems([]);
   }
+  function handleToggleItem(id) {
+    setItems(items => items.map(item => 
+      item.id === id ? { ...item, packed: !item.packed } : item
+    ));
+  }
+
   return (
     <div>
       <div className={styles.header}>
@@ -37,45 +44,93 @@ function PickItem() {
               id="item-select"
               name="item"
               className={styles.items_number}
-              value={quantity} onChange={(e) => setQuantity(Number(e.target.value))}>
-              {Array.from({ length: 10 }, (_, i) => i + 1).map((num) => <option value={num} key={num}>{num}</option>)}
+              value={quantity} 
+              onChange={(e) => setQuantity(Number(e.target.value))}>
+              {Array.from({ length: 10 }, (_, i) => i + 1).map((num) => 
+                <option value={num} key={num}>{num}</option>
+              )}
             </select>
-            <input type='text' placeholder='Item...' value={itemName} onChange={(e) => setItemName(e.target.value)}
+            <input 
+              type='text' 
+              placeholder='Item...' 
+              value={itemName} 
+              onChange={(e) => setItemName(e.target.value)}
             />
             <button className={styles.btn}>Add</button>
           </div>
         </div>
       </form>
       <div className={styles.item_list}>
-        <PackingList items={items} handleDeleteItem={handleDeleteItem} />
+        <PackingList 
+          items={items} 
+          handleDeleteItem={handleDeleteItem} 
+          handleToggleItem={handleToggleItem}  
+        />
         {items.length > 0 && (
           <button className={styles.clear_btn} onClick={handleClearAll}>
             Clear List
           </button>
         )}
       </div>
+       <Stats items={items} />
     </div>
   );
 }
-export default PickItem;
 
-function PackingList({items, handleDeleteItem}) {
+function PackingList({ items, handleDeleteItem, handleToggleItem }) {
   return (
     <ul>
-      {items.map((singleItem) => {
-        return(
-        <PackingItem key={singleItem.id}
+      {items.map((singleItem) => (
+        <PackingItem 
+          key={singleItem.id}
           packingData={singleItem}
-         handleDeleteItem={handleDeleteItem}/>
-      )})}
+          handleDeleteItem={handleDeleteItem} 
+          handleToggleItem={handleToggleItem}  
+        />
+      ))}
     </ul>
-  )
+  );
 }
-function PackingItem({ packingData, handleDeleteItem  }) {
-  return <li style={packingData.packed ? { textDecoration: 'line-through' } : {}}>
-    <span>{packingData.quantity}{" "}{packingData.itemName}</span>
-    <button className={styles.delete} onClick={() => handleDeleteItem(packingData.id)}>
+
+function PackingItem({ packingData, handleDeleteItem, handleToggleItem }) {
+  return (
+    <li>
+      <div>
+        <input 
+          type='checkbox' 
+          className={styles.checkbox}
+          checked={packingData.packed}  
+          onChange={() => handleToggleItem(packingData.id)}  
+        />
+        <span style={packingData.packed ? { textDecoration: 'line-through' } : {}} >
+          {packingData.quantity}{" "}{packingData.itemName}
+        </span>
+      </div>
+      <button className={styles.delete} onClick={() => handleDeleteItem(packingData.id)}>
         Delete Item
       </button>
-  </li>
+    </li>
+  );
+}
+
+export default PickItem;
+
+function Stats({ items }) {
+  const numItems = items.length;
+  const numPacked = items.filter(item => item.packed).length;
+  const packedPercent = numItems === 0 ? 0 : Math.floor((numPacked / numItems) * 100);
+  return (
+    <div className={styles.statistics}>
+      {packedPercent === 100 ? (
+        <div className={styles.packedStatus}>
+          <p>All items are packed! Ready to Go!</p>
+          <img src={Airplane} alt='airplane' className={styles.plane} />
+        </div>
+      ) : (
+        <h3>
+          You have {numItems} items in your list, and you have already picked {numPacked} ({packedPercent}%)
+        </h3>
+      )}
+    </div>
+  );
 }
